@@ -56,16 +56,15 @@ function passwordCheckerPrms(email, password){
  * @return {Promise<any, any>}
  */
 function makePromiseFromFunctionWithCallback(fn, ...fnParams){
-
   return new Promise((resolve,reject) => {
     fn(...fnParams , (err , data) =>{
       if(err){
-        return reject(err)
+        reject(err)
       }
       resolve(data)
     }
     )
-    console.log("x")
+
       
     
   })

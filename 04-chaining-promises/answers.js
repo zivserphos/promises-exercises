@@ -40,7 +40,6 @@ function makeGetUserByIdWithOrganization(getUserById, getOrganizationById){
     getOrganizationById(user.organizationId)
     .then((x) => {
       user.organization = x;
-      console.log(user)
       resolve(user)
     })
   })

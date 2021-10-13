@@ -31,9 +31,21 @@ function chainTwoAsyncProcesses(firstPromise, slowAsyncProcess){
  */
 function makeGetUserByIdWithOrganization(getUserById, getOrganizationById){
   return function getUserByIdWithOrganization(userId){
-    /* IMPLEMENT ME! */
-  };
-}
+    return new Promise((resolve , reject) => {
+    getUserById(userId)
+    .then((user) => {
+    if (!user){
+      resolve(undefined)
+    }
+    getOrganizationById(user.organizationId)
+    .then((x) => {
+      user.organization = x;
+      console.log(user)
+      resolve(user)
+    })
+  })
+})}}
+
 
 module.exports = {
   flatMapPromise,

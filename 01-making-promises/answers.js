@@ -47,6 +47,9 @@ function makePromiseWithConstructor(itShouldResolve){
  * @return {Promise<any>} - A promise that will resolve with the value after delayInMs milliseconds
  */
 function makeDelayPromise(value, delayInMs){
+  return new Promise((resolve , reject) => {
+    setTimeout(() => resolve(value), delayInMs)
+  })
   /* Return a promise that resolves with the value after delayInMs */
 }
 

@@ -7,9 +7,8 @@
  */
 function flatMapPromise(promise, asyncTransformer){
   return new Promise((resolve, reject) => {
-    promise
-      .then(/* IMPLEMENT ME! */);
-  });
+    promise.then((value) => resolve(asyncTransformer(value)))
+    .catch((err) => reject(err))});
 }
 
 /**
@@ -20,7 +19,7 @@ function flatMapPromise(promise, asyncTransformer){
  * @param {function} slowAsyncProcess 
  */
 function chainTwoAsyncProcesses(firstPromise, slowAsyncProcess){
-  return firstPromise.then(/* IMPLEMENT ME! */);
+  return firstPromise.then((result) => slowAsyncProcess(result));
 }
 
 /**
@@ -32,9 +31,20 @@ function chainTwoAsyncProcesses(firstPromise, slowAsyncProcess){
  */
 function makeGetUserByIdWithOrganization(getUserById, getOrganizationById){
   return function getUserByIdWithOrganization(userId){
-    /* IMPLEMENT ME! */
-  };
-}
+    return new Promise((resolve , reject) => {
+    getUserById(userId)
+    .then((user) => {
+    if (!user){
+      resolve(undefined)
+    }
+    getOrganizationById(user.organizationId)
+    .then((x) => {
+      user.organization = x;
+      resolve(user)
+    })
+  })
+})}}
+
 
 module.exports = {
   flatMapPromise,
